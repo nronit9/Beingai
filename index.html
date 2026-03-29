@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BeingAI — AI Summer Camp 2026 · Nagpur</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0B1F35;--blue:#1A6EE4;--sky:#3B9EFF;--teal:#059669;
+  --amber:#F59E0B;--coral:#E84535;--soft:#F4F7FB;--border:rgba(11,31,53,.09);
+  --white:#fff;--r:14px;--sh:0 2px 12px rgba(11,31,53,.07);--sh-md:0 8px 36px rgba(11,31,53,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:#fff;overflow-x:hidden;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Fraunces',serif;line-height:1.1;letter-spacing:-.025em;font-weight:900}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;transition:background .3s,box-shadow .3s}
+nav.scrolled{background:rgba(11,31,53,.97);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(255,255,255,.07)}
+.logo{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:900;color:#fff;letter-spacing:-.02em}
+.logo em{color:var(--amber);font-style:normal}
+.nav-r{display:flex;align-items:center;gap:1.8rem}
+.nav-r a{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.45);transition:color .2s}
+.nav-r a:hover{color:#fff}
+.nav-cta{background:var(--amber)!important;color:var(--ink)!important;font-weight:700!important;padding:.42rem 1.15rem;border-radius:50px;font-size:.78rem!important}
+@media(max-width:720px){.nav-r a:not(.nav-cta){display:none}}
+
+/* WA FLOAT */
+.wa{position:fixed;bottom:1.4rem;right:1.4rem;z-index:800;width:50px;height:50px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.38);transition:transform .2s}
+.wa:hover{transform:scale(1.1)}
+.wa svg{width:24px;height:24px;fill:#fff}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 5vw 60px;background:var(--ink);position:relative;overflow:hidden}
+.h-orb{position:absolute;border-radius:50%;pointer-events:none}
+.h-orb-1{width:560px;height:560px;background:radial-gradient(circle,rgba(59,158,255,.13),transparent 65%);top:-10%;right:-10%}
+.h-orb-2{width:340px;height:340px;background:radial-gradient(circle,rgba(5,150,105,.1),transparent 65%);bottom:-8%;left:-6%}
+.hero-inner{position:relative;z-index:2;max-width:780px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:50px;padding:.35rem .95rem .35rem .5rem;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.72);letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.2rem}
+.chip-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.urgency-pill{display:inline-flex;align-items:center;gap:.4rem;background:rgba(232,69,53,.14);border:1px solid rgba(232,69,53,.28);border-radius:50px;padding:.32rem .9rem;font-size:.73rem;font-weight:700;color:#FF8A7A;margin-bottom:1.3rem}
+.urgency-pill strong{color:#fff}
+.hero h1{font-size:clamp(2.6rem,6.5vw,4.8rem);color:#fff;margin-bottom:1.1rem}
+.hl{color:var(--amber)}
+.hero-sub{font-size:clamp(.9rem,1.8vw,1.05rem);color:rgba(255,255,255,.52);max-width:450px;margin:0 auto 2.2rem}
+.hero-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.2rem}
+.btn-a{background:var(--amber);color:var(--ink);font-weight:700;font-size:.88rem;padding:.78rem 1.9rem;border-radius:50px;box-shadow:0 4px 18px rgba(245,158,11,.3);transition:transform .2s,box-shadow .2s;display:inline-block}
+.btn-a:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(245,158,11,.42)}
+.btn-g{background:rgba(255,255,255,.07);color:#fff;border:1.5px solid rgba(255,255,255,.18);font-size:.88rem;font-weight:600;padding:.78rem 1.9rem;border-radius:50px;transition:background .2s;display:inline-block}
+.btn-g:hover{background:rgba(255,255,255,.14)}
+.hero-strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);overflow:hidden;background:rgba(255,255,255,.04);max-width:600px;margin:0 auto}
+.hs{padding:1.15rem 1rem;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.hs:last-child{border:none}
+.hs-n{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:900;color:var(--amber);line-height:1}
+.hs-l{font-size:.62rem;color:rgba(255,255,255,.38);margin-top:.3rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:480px){.hero-strip{grid-template-columns:repeat(2,1fr)}.hs:nth-child(2){border-right:none}.hs:nth-child(1),.hs:nth-child(2){border-bottom:1px solid rgba(255,255,255,.08)}}
+
+/* TICKER */
+.ticker-wrap{background:var(--amber);overflow:hidden;height:32px;display:flex;align-items:center}
+.ticker{display:flex;white-space:nowrap;animation:tick 26s linear infinite}
+.t-item{font-family:'Fraunces',serif;font-size:.67rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding:0 2rem;opacity:.8;display:inline-flex;align-items:center;gap:.6rem}
+.t-item::after{content:'◆';font-size:.4rem;opacity:.4}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* URGENCY BAR */
+.urgency-bar{background:linear-gradient(135deg,#7B0000,#B91C1C);color:#fff;text-align:center;padding:1rem 5vw}
+.urgency-bar p{font-size:.86rem;font-weight:600;line-height:1.65}
+.urgency-bar strong{color:var(--amber)}
+
+/* SECTIONS */
+.s{padding:88px 5vw}
+.s-soft{background:var(--soft)}
+.s-ink{background:var(--ink)}
+.s-warm{background:#FAFAF8}
+.container{max-width:1100px;margin:0 auto}
+.s-label{display:inline-flex;align-items:center;gap:.4rem;font-size:.67rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.65rem}
+.s-label::before{content:'';width:18px;height:2px;background:currentColor;border-radius:2px;flex-shrink:0}
+.s-label.dk{color:rgba(255,255,255,.38)}
+.s-label.am{color:var(--amber)}
+h2.tt{font-size:clamp(1.85rem,3.8vw,2.8rem);margin-bottom:.65rem}
+h2.tt.dk{color:#fff}
+.sub{font-size:.92rem;color:rgba(11,31,53,.48);max-width:480px;line-height:1.75}
+.sub.dk{color:rgba(255,255,255,.42)}
+
+/* WHY STATS */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.8rem}
+@media(max-width:800px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+.why-card{background:#fff;border-radius:var(--r);padding:2rem 1.5rem;text-align:center;box-shadow:var(--sh);border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:.35rem;transition:transform .22s,box-shadow .22s}
+.why-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.why-n{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:900;line-height:1}
+.why-l{font-size:.8rem;color:rgba(11,31,53,.48);font-weight:600;line-height:1.45}
+
+/* OUTCOMES */
+.oc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+@media(max-width:880px){.oc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.oc-grid{grid-template-columns:1fr}}
+.oc{background:#fff;border-radius:var(--r);padding:1.55rem 1.4rem;border:1.5px solid var(--border);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:all .22s}
+.oc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue);transform:scaleY(0);transform-origin:bottom;transition:transform .25s}
+.oc:hover{border-color:rgba(26,110,228,.2);box-shadow:var(--sh);transform:translateY(-3px)}
+.oc:hover::before{transform:scaleY(1)}
+.oc-em{font-size:1.65rem;margin-bottom:.85rem}
+.oc-t{font-family:'Fraunces',serif;font-size:.95rem;font-weight:900;margin-bottom:.35rem;line-height:1.25}
+.oc-d{font-size:.8rem;color:rgba(11,31,53,.48);line-height:1.65;flex:1}
+.oc-pill{display:inline-block;margin-top:.8rem;background:var(--soft);color:var(--blue);font-size:.66rem;font-weight:700;padding:.18rem .65rem;border-radius:50px;align-self:flex-start}
+
+/* BEFORE / AFTER */
+.ba-outer{max-width:800px;margin:2.8rem auto 0}
+.ba-slider{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 28px 70px rgba(0,0,0,.42);user-select:none;touch-action:pan-y;cursor:col-resize}
+.ba-side{min-height:400px;display:flex;flex-direction:column;justify-content:center;padding:2.8rem}
+.ba-after{background:linear-gradient(140deg,#0B1F35,#0d2a4a)}
+.ba-before{position:absolute;inset:0;background:linear-gradient(140deg,#180808,#250d0d);clip-path:inset(0 50% 0 0);display:flex;flex-direction:column;justify-content:center;padding:2.8rem}
+.ba-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.28rem .85rem;border-radius:50px;margin-bottom:1.5rem;width:fit-content;border:1px solid}
+.ba-after .ba-tag{background:rgba(59,158,255,.13);color:#90CAF9;border-color:rgba(59,158,255,.2)}
+.ba-before .ba-tag{background:rgba(232,69,53,.13);color:#FF8A7A;border-color:rgba(232,69,53,.2)}
+.ba-row{display:flex;align-items:center;gap:.8rem;font-size:.87rem;color:rgba(255,255,255,.8);font-weight:500;margin-bottom:.75rem;line-height:1.4}
+.ba-ic{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;font-weight:700}
+.ba-after .ba-ic{background:rgba(5,150,105,.25);color:#34D399}
+.ba-before .ba-ic{background:rgba(232,69,53,.18);color:#FF6B6B}
+.ba-div{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:2px;background:rgba(255,255,255,.88);z-index:10;pointer-events:none}
+.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 4px 22px rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center;z-index:11;cursor:col-resize;pointer-events:all;font-size:.75rem;font-weight:800;color:var(--ink);letter-spacing:1px}
+.ba-hint{text-align:center;font-size:.68rem;color:rgba(255,255,255,.28);margin-top:.75rem;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:560px){.ba-side,.ba-before{padding:2rem 1.6rem}.ba-row{font-size:.8rem}}
+
+/* TABS */
+.tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.tab{padding:.5rem 1.2rem;border-radius:50px;font-size:.82rem;font-weight:600;border:1.5px solid var(--border);color:rgba(11,31,53,.42);cursor:pointer;transition:all .2s;background:#fff;font-family:'Plus Jakarta Sans',sans-serif}
+.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.tp{display:none}
+.tp.on{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ti{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:.7rem;transition:border-color .2s}
+.ti:hover{border-color:rgba(26,110,228,.22)}
+.ti-dot{width:22px;height:22px;min-width:22px;border-radius:7px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:.73rem;flex-shrink:0}
+.ti-t{font-size:.82rem;font-weight:600;line-height:1.5}
+
+/* DAYS */
+.days-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem;margin-top:2.4rem}
+@media(max-width:900px){.days-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.days-grid{grid-template-columns:repeat(2,1fr)}}
+.day{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);padding:1rem .95rem;transition:all .22s;display:flex;flex-direction:column;min-height:108px}
+.day:hover{border-color:rgba(26,110,228,.22);transform:translateY(-3px);box-shadow:0 6px 18px rgba(26,110,228,.1)}
+.day-n{font-size:.58rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:rgba(11,31,53,.28);margin-bottom:.5rem}
+.day-tt{font-family:'Fraunces',serif;font-size:.82rem;font-weight:900;color:var(--ink);line-height:1.3;margin-bottom:.4rem;flex:1}
+.day-op{font-size:.68rem;color:rgba(11,31,53,.42);line-height:1.5}
+.day.gold{border-color:var(--amber)!important;background:linear-gradient(135deg,#FFFBEB,#FEF3C7)}
+.day.gold .day-n{color:#9a6800}
+.day.gold .day-tt{color:var(--coral)}
+
+/* CERTIFICATE */
+.cert-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:3.5rem;align-items:start;margin-top:2.8rem}
+@media(max-width:840px){.cert-layout{grid-template-columns:1fr}}
+.cert-doc{background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--sh-md),0 0 0 1px rgba(11,31,53,.07)}
+.cert-bar{height:5px;background:linear-gradient(90deg,#9a6000,var(--amber),#f5c97a,var(--amber),#9a6000);background-size:200%;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:200%}100%{background-position:-200%}}
+.cert-in{padding:2.2rem 2.4rem 1.8rem;position:relative}
+.cert-wm{position:absolute;right:1.2rem;top:50%;transform:translateY(-50%);font-family:'Fraunces',serif;font-size:7rem;font-weight:900;color:rgba(11,31,53,.022);pointer-events:none;line-height:1;z-index:0;user-select:none}
+.cert-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.8rem;padding-bottom:1.3rem;border-bottom:1px solid var(--border);position:relative;z-index:1}
+.cert-logos{display:flex;align-items:center;gap:.5rem}
+.cpill{font-family:'Fraunces',serif;font-size:.75rem;font-weight:900;padding:.28rem .8rem;border-radius:7px}
+.cpill-d{background:var(--ink);color:#fff}
+.cpill-l{background:var(--soft);color:var(--ink);border:1px solid var(--border)}
+.cx{font-size:.68rem;color:rgba(11,31,53,.22)}
+.cert-seal{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#9a6000,var(--amber),#f5d78a);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 12px rgba(200,136,14,.25),0 0 0 3px rgba(200,136,14,.1)}
+.cert-body{position:relative;z-index:1;text-align:center;padding:.4rem 0 1.4rem}
+.cert-presents{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,31,53,.3);margin-bottom:.5rem}
+.cert-name{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;color:var(--ink);margin-bottom:.25rem;line-height:1.1}
+.cert-class{font-size:.75rem;color:rgba(11,31,53,.38);margin-bottom:1.3rem}
+.cert-dv{width:56px;height:2px;background:linear-gradient(90deg,transparent,var(--amber),transparent);margin:0 auto 1.3rem}
+.cert-desig{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--ink);margin-bottom:.22rem}
+.cert-tagline{font-size:.72rem;color:rgba(11,31,53,.38);margin-bottom:1.3rem}
+.cert-chips{display:flex;justify-content:center;gap:.35rem;flex-wrap:wrap}
+.cert-chip{background:var(--soft);border:1px solid var(--border);font-size:.6rem;font-weight:700;padding:.18rem .7rem;border-radius:50px}
+.cert-ftr{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:.8rem;padding-top:1.3rem;margin-top:.4rem;border-top:1px solid var(--border)}
+.cert-sig .cert-line{width:72px;height:1px;background:rgba(11,31,53,.15);margin-bottom:.28rem}
+.cert-sig.r{text-align:right}.cert-sig.r .cert-line{margin-left:auto}
+.cert-sig-name{font-family:'Fraunces',serif;font-size:.88rem;font-weight:900;color:var(--ink)}
+.cert-sig-role{font-size:.6rem;color:rgba(11,31,53,.38)}
+.cert-stamp{width:38px;height:38px;border:2px solid rgba(200,136,14,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.cert-try{background:var(--soft);border-top:1px dashed rgba(11,31,53,.1);padding:.9rem 2.4rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.cert-try-lbl{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(11,31,53,.32)}
+.cert-inp{border:1.5px solid var(--border);border-radius:8px;padding:.3rem .65rem;font-size:.76rem;font-family:inherit;outline:none;width:126px;background:#fff;transition:border-color .2s}
+.cert-inp:focus{border-color:var(--amber)}
+.cert-pts{display:flex;flex-direction:column;gap:1.3rem}
+.cert-pt{display:flex;gap:.85rem;align-items:flex-start}
+.cpt-ico{width:42px;height:42px;min-width:42px;border-radius:11px;background:#fff;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.05rem;box-shadow:var(--sh)}
+.cpt-t{font-family:'Fraunces',serif;font-size:.9rem;font-weight:900;margin-bottom:.18rem}
+.cpt-d{font-size:.8rem;color:rgba(11,31,53,.48);line-height:1.6}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+@media(max-width:800px){.testi-grid{grid-template-columns:1fr}}
+.tcard{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--sh);transition:transform .22s,box-shadow .22s}
+.tcard:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.tcard-screen{background:var(--soft);border-bottom:1px solid var(--border);padding:1.1rem;position:relative;min-height:148px;display:flex;align-items:center;justify-content:center}
+.proof-tag{position:absolute;top:.65rem;right:.65rem;background:rgba(5,150,105,.13);border:1px solid rgba(5,150,105,.22);color:#059669;font-size:.58rem;font-weight:700;padding:.16rem .55rem;border-radius:50px;display:inline-flex;align-items:center;gap:.2rem}
+.proof-tag::before{content:'✓';font-weight:900}
+
+/* PPT mockup */
+.ss-ppt{background:#fff;border-radius:8px;box-shadow:0 4px 14px rgba(11,31,53,.13);width:100%;max-width:215px;overflow:hidden;border:1px solid var(--border)}
+.ss-bar{height:20px;display:flex;align-items:center;padding:0 .55rem;gap:.25rem}
+.ss-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.35)}
+.ss-lbl{font-size:.42rem;color:rgba(255,255,255,.6);margin-left:.3rem;font-weight:700}
+.ppt-title{background:linear-gradient(135deg,#1A56DB,#2563EB);padding:.7rem .75rem .5rem;text-align:center}
+.ppt-title p{font-family:'Fraunces',serif;font-size:.7rem;font-weight:900;color:#fff;line-height:1.3}
+.ppt-body{padding:.5rem .75rem;display:flex;flex-direction:column;gap:.22rem}
+.ppt-line{height:5px;border-radius:3px;background:rgba(11,31,53,.09)}
+.ppt-slides{display:flex;gap:.25rem;padding:.28rem .75rem}
+.ppt-slide-mini{flex:1;height:14px;border-radius:3px;background:rgba(11,31,53,.07);border:1px solid rgba(11,31,53,.08)}
+.ppt-footer{background:var(--soft);padding:.28rem .75rem;font-size:.48rem;color:rgba(11,31,53,.35);font-weight:600;text-align:right;border-top:1px solid var(--border)}
+
+/* Quiz mockup */
+.ss-quiz{background:#fff;border-radius:8px;box-shadow:0 4px 14px rgba(11,31,53,.13);width:100%;max-width:215px;overflow:hidden;border:1px solid var(--border)}
+.quiz-q{padding:.65rem .75rem .45rem;font-family:'Fraunces',serif;font-size:.63rem;font-weight:700;color:var(--ink);line-height:1.35}
+.quiz-opts{padding:0 .75rem .65rem;display:flex;flex-direction:column;gap:.2rem}
+.quiz-opt{background:var(--soft);border:1px solid var(--border);border-radius:5px;padding:.26rem .5rem;font-size:.55rem;font-weight:600;color:rgba(11,31,53,.65)}
+.quiz-opt.ok{background:#DCFCE7;border-color:#86EFAC;color:#166534}
+.quiz-foot{padding:.25rem .75rem .5rem;font-size:.48rem;font-weight:700;color:var(--teal)}
+
+/* Essay mockup */
+.ss-essay{background:#fff;border-radius:8px;box-shadow:0 4px 14px rgba(11,31,53,.13);width:100%;max-width:215px;overflow:hidden;border:1px solid var(--border)}
+.essay-head{background:linear-gradient(135deg,#6D28D9,#7C3AED);padding:.5rem .75rem;font-family:'Fraunces',serif;font-size:.6rem;font-weight:900;color:#fff;line-height:1.35}
+.essay-body{padding:.5rem .75rem;display:flex;flex-direction:column;gap:.2rem}
+.essay-foot{padding:.25rem .75rem .5rem;font-size:.48rem;font-weight:700;color:var(--teal)}
+
+.tcard-body{padding:1.2rem 1.35rem 1.35rem;display:flex;flex-direction:column;flex:1}
+.tcard-quote{font-size:.83rem;color:rgba(11,31,53,.75);line-height:1.68;font-style:italic;flex:1;margin-bottom:1rem;padding-left:.85rem;position:relative}
+.tcard-quote::before{content:'\201C';position:absolute;left:0;top:-.1rem;font-family:'Fraunces',serif;font-size:1.5rem;color:var(--amber);line-height:1}
+.tcard-person{display:flex;align-items:center;gap:.7rem;padding-top:.9rem;border-top:1px solid var(--border)}
+.tcard-av{width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;font-family:'Fraunces',serif;color:#fff;flex-shrink:0}
+.tcard-name{font-size:.8rem;font-weight:700}
+.tcard-role{font-size:.7rem;color:rgba(11,31,53,.42);margin-top:.03rem}
+.tcard-stars{color:var(--amber);font-size:.68rem;margin-top:.25rem}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+@media(max-width:680px){.price-grid{grid-template-columns:1fr}}
+.price-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:2rem 1.5rem;text-align:center;transition:background .22s}
+.price-card:hover{background:rgba(255,255,255,.11)}
+.price-card.feat{border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.09)}
+.pi-lbl{font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.4rem}
+.pi-n{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:900;color:var(--amber);line-height:1;margin-bottom:.25rem}
+.pi-was{font-size:.72rem;color:rgba(255,255,255,.28);text-decoration:line-through;margin-bottom:.45rem}
+.pi-d{font-size:.82rem;color:rgba(255,255,255,.58);line-height:1.6}
+.steps-box{max-width:520px;margin:2.8rem auto 0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);padding:1.8rem 2rem}
+.steps-lbl{font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:1.2rem}
+.step-row{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:1rem}
+.step-row:last-child{margin:0}
+.step-num{width:27px;height:27px;min-width:27px;border-radius:50%;font-size:.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;font-family:'Fraunces',serif}
+.step-b{font-size:.83rem;color:rgba(255,255,255,.55);line-height:1.6;padding-top:.15rem}
+.step-b strong{color:#fff;display:block;margin-bottom:.02rem}
+
+/* TRUST */
+.trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;margin-top:2.8rem}
+@media(max-width:780px){.trust-grid{grid-template-columns:1fr}}
+.expert-card{background:var(--ink);border-radius:18px;padding:2.1rem;position:relative;overflow:hidden}
+.expert-card::after{content:'';position:absolute;top:-55px;right:-55px;width:150px;height:150px;border-radius:50%;background:rgba(59,158,255,.07);pointer-events:none}
+.ex-name{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;color:var(--amber);margin-bottom:.2rem}
+.ex-role{font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:1.2rem;line-height:1.6}
+.ex-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.3rem}
+.ex-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);color:rgba(255,255,255,.78);font-size:.68rem;font-weight:600;padding:.26rem .72rem;border-radius:50px}
+.ex-quote{background:rgba(255,255,255,.05);border-left:2.5px solid var(--sky);padding:.8rem 1.05rem;border-radius:0 8px 8px 0;font-size:.81rem;color:rgba(255,255,255,.62);line-height:1.7;margin-bottom:1.15rem}
+.g-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem}
+.g-logo{font-weight:800;font-size:.8rem}
+.gb{color:#4285F4}.gr{color:#EA4335}.gy{color:#FBBC04}.gg{color:#34A853}
+.g-text{font-size:.78rem;color:rgba(255,255,255,.68);font-weight:600}
+.g-sub{font-size:.66rem;color:rgba(255,255,255,.3);margin-top:.1rem}
+.media-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+.media-chip{background:#fff;border:1.5px solid var(--border);padding:.38rem .95rem;border-radius:50px;font-size:.74rem;font-weight:700;display:inline-flex;align-items:center;gap:.3rem}
+.trust-pts{display:flex;flex-direction:column;gap:.82rem}
+.tp-row{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;display:flex;gap:.8rem;align-items:flex-start;transition:border-color .22s,transform .22s}
+.tp-row:hover{border-color:rgba(26,110,228,.22);transform:translateX(3px)}
+.tp-ico{width:35px;height:35px;min-width:35px;border-radius:9px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:.88rem}
+.tp-t{font-family:'Fraunces',serif;font-size:.84rem;font-weight:900;margin-bottom:.1rem}
+.tp-d{font-size:.77rem;color:rgba(11,31,53,.48);line-height:1.55}
+
+/* FAQ */
+.faq-wrap{max-width:640px;margin:2.4rem auto 0}
+.fi{border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;background:#fff;margin-bottom:.6rem;transition:border-color .25s}
+.fi.open{border-color:rgba(26,110,228,.22)}
+.fq{width:100%;background:none;border:none;padding:1.1rem 1.35rem;display:flex;justify-content:space-between;align-items:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:.87rem;font-weight:700;color:var(--ink);cursor:pointer;text-align:left;gap:.8rem;transition:background .2s}
+.fq:hover{background:var(--soft)}
+.fi-ic{width:23px;height:23px;min-width:23px;border-radius:50%;background:var(--soft);color:var(--blue);font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:transform .28s,background .2s}
+.fi.open .fi-ic{transform:rotate(45deg);background:var(--blue);color:#fff}
+.fa{max-height:0;overflow:hidden;transition:max-height .36s ease;font-size:.84rem;color:rgba(11,31,53,.52);line-height:1.78;padding:0 1.35rem}
+.fi.open .fa{max-height:220px;padding:.1rem 1.35rem 1.1rem}
+
+/* CTA */
+.cta-s{background:var(--ink);text-align:center;padding:92px 5vw;position:relative;overflow:hidden}
+.cta-s::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 50% 0%,rgba(59,158,255,.1),transparent);pointer-events:none}
+.cta-s h2{font-size:clamp(1.9rem,4.5vw,3rem);color:#fff;margin-bottom:.75rem;position:relative}
+.cta-s p{font-size:.92rem;color:rgba(255,255,255,.48);max-width:400px;margin:0 auto 2.1rem;position:relative}
+.cta-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;position:relative}
+.cta-note{font-size:.72rem;color:rgba(255,255,255,.22);margin-top:1.2rem;position:relative}
+.cta-urgency{background:rgba(232,69,53,.12);border:1px solid rgba(232,69,53,.22);border-radius:50px;padding:.45rem 1.2rem;font-size:.78rem;font-weight:700;color:#FF8A7A;display:inline-block;margin-bottom:1.8rem;position:relative}
+
+footer{background:#060D16;padding:32px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.fl{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:#fff}.fl em{color:var(--amber);font-style:normal}
+.fc{font-size:.72rem;color:rgba(255,255,255,.22)}
+.flinks{display:flex;gap:1.1rem;flex-wrap:wrap}
+.flinks a{font-size:.72rem;color:rgba(255,255,255,.28);transition:color .2s}
+.flinks a:hover{color:rgba(255,255,255,.75)}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .58s cubic-bezier(.16,1,.3,1),transform .58s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.20s}.d4{transition-delay:.27s}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/919881437689?text=Hi%20BeingAI!%20I%27m%20interested%20in%20the%20AI%20Summer%20Camp%202026." class="wa" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L.057 23.882a.5.5 0 00.611.61l6.101-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.027-1.382l-.36-.214-3.733.893.924-3.644-.234-.375A9.819 9.819 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+</a>
+
+<nav id="nav">
+  <div class="logo">Being<em>AI</em></div>
+  <div class="nav-r">
+    <a href="#outcomes">What Students Learn</a>
+    <a href="#curriculum">15 Days</a>
+    <a href="#cert">Certificate</a>
+    <a href="#trust">About</a>
+    <a href="#contact" class="nav-cta">Partner With Us</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="h-orb h-orb-1"></div>
+  <div class="h-orb h-orb-2"></div>
+  <div class="hero-inner">
+    <div class="chip"><span class="chip-dot"></span>Summer Camp 2026 · Launching from Nagpur</div>
+    <div class="urgency-pill">🔥 <strong>Only 2 school slots per area</strong> — April &amp; May 2026 filling fast</div>
+    <h1>Your child will<br><span class="hl">study smarter.</span><br>Starting this summer.</h1>
+    <p class="hero-sub">15 days. Real AI skills. A tangible output every day. For Classes 4–10.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-a">Bring BeingAI to My School →</a>
+      <a href="#outcomes" class="btn-g">See What Students Learn</a>
+    </div>
+    <div class="hero-strip">
+      <div class="hs"><div class="hs-n">15</div><div class="hs-l">Days</div></div>
+      <div class="hs"><div class="hs-n">10+</div><div class="hs-l">AI Tools</div></div>
+      <div class="hs"><div class="hs-n">50+</div><div class="hs-l">Outputs</div></div>
+      <div class="hs"><div class="hs-n">₹1,500</div><div class="hs-l">Launch Price</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="t-item">Proudly from Nagpur</span><span class="t-item">AI Summer Camp 2026</span><span class="t-item">Classes 4 to 10</span><span class="t-item">Launch Offer ₹1,500</span><span class="t-item">Co-Certified with Your School</span><span class="t-item">Only 2 Schools per Area</span><span class="t-item">Zero Cost to School</span><span class="t-item">Expert-Led · Ronit Nandeshwar</span>
+    <span class="t-item">Proudly from Nagpur</span><span class="t-item">AI Summer Camp 2026</span><span class="t-item">Classes 4 to 10</span><span class="t-item">Launch Offer ₹1,500</span><span class="t-item">Co-Certified with Your School</span><span class="t-item">Only 2 Schools per Area</span><span class="t-item">Zero Cost to School</span><span class="t-item">Expert-Led · Ronit Nandeshwar</span>
+  </div>
+</div>
+
+<div class="urgency-bar">
+  <p>⚠️ <strong>Limited availability:</strong> BeingAI accepts only <strong>2 partner schools per area</strong> in Nagpur to ensure quality. April 2026 batches are <strong>partially filled.</strong> Contact today to check if your area's slot is still open.</p>
+</div>
+
+<section class="s s-soft">
+  <div class="container">
+    <div class="s-label">Why It Matters Now</div>
+    <h2 class="tt">AI is reshaping education.<br>Is your child ready?</h2>
+    <p class="sub">The gap between AI-literate and AI-unaware students grows every year. BeingAI closes it — in one summer, right here in Nagpur.</p>
+    <div class="why-grid reveal">
+      <div class="why-card d1"><div class="why-n" style="color:var(--blue)">75%</div><div class="why-l">of jobs by 2030 will need AI &amp; digital literacy</div></div>
+      <div class="why-card d2"><div class="why-n" style="color:var(--teal)">40%</div><div class="why-l">more study efficiency with the right AI tools</div></div>
+      <div class="why-card d3"><div class="why-n" style="color:var(--amber)">NEP</div><div class="why-l">2020 mandates digital learning in schools nationally</div></div>
+      <div class="why-card d4"><div class="why-n" style="color:var(--coral)">Now</div><div class="why-l">Summer is the perfect window — zero exam pressure</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="outcomes">
+  <div class="container">
+    <div class="s-label">Skills That Actually Help</div>
+    <h2 class="tt">8 skills that directly<br>boost school performance</h2>
+    <p class="sub">Every skill links to subjects students study right now. Pure application from Day 1.</p>
+    <div class="oc-grid reveal">
+      <div class="oc"><span class="oc-em">📖</span><div class="oc-t">Read Any Chapter Fast</div><div class="oc-d">Summarise any chapter in 30 minutes with AI tools.</div><div class="oc-pill">All Subjects</div></div>
+      <div class="oc"><span class="oc-em">🎯</span><div class="oc-t">Unlimited Exam Practice</div><div class="oc-d">Generate personalised MCQs and test papers for any chapter.</div><div class="oc-pill">Exam Prep</div></div>
+      <div class="oc"><span class="oc-em">📊</span><div class="oc-t">Pro Presentations</div><div class="oc-d">10-slide school presentations built in under 45 minutes.</div><div class="oc-pill">Projects</div></div>
+      <div class="oc"><span class="oc-em">✍️</span><div class="oc-t">Write 5× Faster</div><div class="oc-d">Structured, original essays — faster and without copying.</div><div class="oc-pill">English</div></div>
+      <div class="oc"><span class="oc-em">🔢</span><div class="oc-t">Maths with AI Coaching</div><div class="oc-d">Step-by-step solutions that build genuine understanding.</div><div class="oc-pill">Mathematics</div></div>
+      <div class="oc"><span class="oc-em">🔍</span><div class="oc-t">Research Any Topic</div><div class="oc-d">Accurate, cited information in minutes — not hours.</div><div class="oc-pill">Science &amp; SST</div></div>
+      <div class="oc"><span class="oc-em">🛠️</span><div class="oc-t">Build a Real Project</div><div class="oc-d">Every student presents a working AI project on Day 13.</div><div class="oc-pill">Innovation</div></div>
+      <div class="oc"><span class="oc-em">🛡️</span><div class="oc-t">Use AI Safely</div><div class="oc-d">Ethics, digital safety, and responsible use — for life.</div><div class="oc-pill">Life Skills</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s s-ink">
+  <div class="container">
+    <div class="s-label dk am">The Transformation</div>
+    <h2 class="tt dk">See the difference BeingAI makes</h2>
+    <p class="sub dk">Drag the handle left and right to compare life before and after the camp.</p>
+    <div class="ba-outer reveal">
+      <div class="ba-slider" id="baSlider">
+        <div class="ba-side ba-after">
+          <div class="ba-tag">🚀 After BeingAI</div>
+          <div class="ba-row"><div class="ba-ic">✓</div>Summarises any chapter in 30 minutes</div>
+          <div class="ba-row"><div class="ba-ic">✓</div>Generates unlimited exam practice papers</div>
+          <div class="ba-row"><div class="ba-ic">✓</div>Presents confidently with AI-designed slides</div>
+          <div class="ba-row"><div class="ba-ic">✓</div>Writes structured, original essays with ease</div>
+          <div class="ba-row"><div class="ba-ic">✓</div>Understands Maths step-by-step — no fear</div>
+          <div class="ba-row"><div class="ba-ic">✓</div>Holds a co-certified AI Innovator certificate</div>
+        </div>
+        <div class="ba-before" id="baBefore">
+          <div class="ba-tag">😔 Before BeingAI</div>
+          <div class="ba-row"><div class="ba-ic">✗</div>Spends 3+ hours re-reading the same chapter</div>
+          <div class="ba-row"><div class="ba-ic">✗</div>Doesn't know how to find more practice questions</div>
+          <div class="ba-row"><div class="ba-ic">✗</div>Copy-pastes from Google for presentations</div>
+          <div class="ba-row"><div class="ba-ic">✗</div>Struggles to structure assignments and essays</div>
+          <div class="ba-row"><div class="ba-ic">✗</div>Fears Maths, gives up on difficult problems</div>
+          <div class="ba-row"><div class="ba-ic">✗</div>No awareness of AI tools or future career skills</div>
+        </div>
+        <div class="ba-div" id="baDivider">
+          <div class="ba-handle" id="baHandle">◀▶</div>
+        </div>
+      </div>
+      <p class="ba-hint">← Drag to compare →</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="impact">
+  <div class="container">
+    <div class="s-label">Real Impact</div>
+    <h2 class="tt">Meaningful results for<br>every stakeholder</h2>
+    <div class="reveal">
+      <div class="tabs">
+        <button class="tab on" onclick="showTab('s',this)">For Students</button>
+        <button class="tab" onclick="showTab('p',this)">For Parents</button>
+        <button class="tab" onclick="showTab('sc',this)">For Schools</button>
+      </div>
+      <div id="tp-s" class="tp on">
+        <div class="ti"><div class="ti-dot">📖</div><div class="ti-t">Understands chapters 3× faster using AI tools</div></div>
+        <div class="ti"><div class="ti-dot">🎯</div><div class="ti-t">Gets unlimited personalised exam practice</div></div>
+        <div class="ti"><div class="ti-dot">📊</div><div class="ti-t">Delivers polished presentations every time</div></div>
+        <div class="ti"><div class="ti-dot">✍️</div><div class="ti-t">Writes original essays significantly faster</div></div>
+        <div class="ti"><div class="ti-dot">🔢</div><div class="ti-t">Solves Maths with step-by-step AI guidance</div></div>
+        <div class="ti"><div class="ti-dot">🏆</div><div class="ti-t">Earns a co-certified AI Innovator credential</div></div>
+        <div class="ti"><div class="ti-dot">🗺️</div><div class="ti-t">Gets a personalised 3-month learning roadmap</div></div>
+        <div class="ti"><div class="ti-dot">🛡️</div><div class="ti-t">Knows how to use AI safely and responsibly</div></div>
+      </div>
+      <div id="tp-p" class="tp">
+        <div class="ti"><div class="ti-dot">📈</div><div class="ti-t">Child becomes self-driven in revision from Day 1</div></div>
+        <div class="ti"><div class="ti-dot">📦</div><div class="ti-t">A real output comes home every single day</div></div>
+        <div class="ti"><div class="ti-dot">🛡️</div><div class="ti-t">Supervised, age-appropriate, safe AI learning</div></div>
+        <div class="ti"><div class="ti-dot">🚀</div><div class="ti-t">Future-ready skills built in just 15 days</div></div>
+        <div class="ti"><div class="ti-dot">🎓</div><div class="ti-t">Co-certified credential adds real portfolio value</div></div>
+        <div class="ti"><div class="ti-dot">🧠</div><div class="ti-t">Child asks smarter, more curious questions</div></div>
+        <div class="ti"><div class="ti-dot">💡</div><div class="ti-t">Expert-designed curriculum — not a generic workshop</div></div>
+        <div class="ti"><div class="ti-dot">✅</div><div class="ti-t">Visible improvement in study habits within a week</div></div>
+      </div>
+      <div id="tp-sc" class="tp">
+        <div class="ti"><div class="ti-dot">🤝</div><div class="ti-t">School name co-certified on every student certificate</div></div>
+        <div class="ti"><div class="ti-dot">🏛️</div><div class="ti-t">Aligns with NEP 2020 digital learning mandate</div></div>
+        <div class="ti"><div class="ti-dot">🌟</div><div class="ti-t">Builds reputation as a forward-thinking institution</div></div>
+        <div class="ti"><div class="ti-dot">📜</div><div class="ti-t">Zero infrastructure cost — uses existing facilities</div></div>
+        <div class="ti"><div class="ti-dot">👥</div><div class="ti-t">Differentiates school in the Nagpur community</div></div>
+        <div class="ti"><div class="ti-dot">😊</div><div class="ti-t">Engaged, productive students through summer</div></div>
+        <div class="ti"><div class="ti-dot">📰</div><div class="ti-t">Shareable initiative for local press and community</div></div>
+        <div class="ti"><div class="ti-dot">🎯</div><div class="ti-t">Expert educator manages all content end-to-end</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s s-soft" id="curriculum">
+  <div class="container">
+    <div class="s-label">15-Day Programme</div>
+    <h2 class="tt">Every day has a clear output</h2>
+    <p class="sub">Students create something they can use every single day. No passive watching.</p>
+    <div class="days-grid reveal">
+      <div class="day"><div class="day-n">Day 01</div><div class="day-tt">Meet Your AI Study Partner</div><div class="day-op">📦 Personal AI Toolkit — 5 tools</div></div>
+      <div class="day"><div class="day-n">Day 02</div><div class="day-tt">Read Any Chapter in 30 Min</div><div class="day-op">📦 AI cheat sheet for any chapter</div></div>
+      <div class="day"><div class="day-n">Day 03</div><div class="day-tt">Build Your Exam Quiz Bank</div><div class="day-op">📦 50-question personalised quiz bank</div></div>
+      <div class="day"><div class="day-n">Day 04</div><div class="day-tt">Design Pro Presentations</div><div class="day-op">📦 Complete 10-slide school PPT</div></div>
+      <div class="day"><div class="day-n">Day 05</div><div class="day-tt">Understand Hard Chapters</div><div class="day-op">📦 Concept clarity notes</div></div>
+      <div class="day"><div class="day-n">Day 06</div><div class="day-tt">Write Essays 5× Faster</div><div class="day-op">📦 Polished essay + template</div></div>
+      <div class="day"><div class="day-n">Day 07</div><div class="day-tt">Crack Maths with AI</div><div class="day-op">📦 20-problem set + solutions</div></div>
+      <div class="day"><div class="day-n">Day 08</div><div class="day-tt">Become a Creator with AI</div><div class="day-op">📦 Creative project — portfolio piece</div></div>
+      <div class="day"><div class="day-n">Day 09</div><div class="day-tt">Research Like a Pro</div><div class="day-op">📦 1-page report with references</div></div>
+      <div class="day"><div class="day-n">Day 10</div><div class="day-tt">Prepare Any Exam in 2 Hours</div><div class="day-op">📦 Revision schedule + flashcards</div></div>
+      <div class="day"><div class="day-n">Day 11</div><div class="day-tt">Speak &amp; Debate Confidently</div><div class="day-op">📦 Speech template + arguments</div></div>
+      <div class="day"><div class="day-n">Day 12</div><div class="day-tt">Explore AI Careers of 2030</div><div class="day-op">📦 Personalised AI career roadmap</div></div>
+      <div class="day"><div class="day-n">Day 13</div><div class="day-tt">Build Your First AI Project</div><div class="day-op">📦 Working project — presented live</div></div>
+      <div class="day"><div class="day-n">Day 14</div><div class="day-tt">Use AI Responsibly</div><div class="day-op">📦 Personal AI ethics pledge</div></div>
+      <div class="day gold"><div class="day-n">Day 15</div><div class="day-tt">🎓 Graduation Day</div><div class="day-op">🏆 Certificate + 3-Month Plan</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s s-warm" id="cert">
+  <div class="container">
+    <div class="s-label">Recognition That Counts</div>
+    <h2 class="tt">A certificate co-signed by<br>your school &amp; BeingAI</h2>
+    <div class="cert-layout reveal">
+      <div class="cert-doc">
+        <div class="cert-bar"></div>
+        <div class="cert-in">
+          <div class="cert-wm">AI</div>
+          <div class="cert-hdr">
+            <div class="cert-logos">
+              <div class="cpill cpill-d">BeingAI</div>
+              <span class="cx">×</span>
+              <div class="cpill cpill-l" id="schoolNameLbl">Your School</div>
+            </div>
+            <div class="cert-seal">🏅</div>
+          </div>
+          <div class="cert-body">
+            <div class="cert-presents">This certifies that</div>
+            <div class="cert-name" id="certName">Arjun Sharma</div>
+            <div class="cert-class">Class 9 &nbsp;·&nbsp; Summer Camp 2026 &nbsp;·&nbsp; Nagpur</div>
+            <div class="cert-dv"></div>
+            <div class="cert-desig">AI Innovator</div>
+            <div class="cert-tagline">BeingAI Summer Camp 2026 — Certificate of Completion</div>
+            <div class="cert-chips">
+              <span class="cert-chip">15 Days Completed</span>
+              <span class="cert-chip">10+ AI Tools</span>
+              <span class="cert-chip">50+ Outputs Created</span>
+            </div>
+          </div>
+          <div class="cert-ftr">
+            <div class="cert-sig"><div class="cert-line"></div><div class="cert-sig-name">Ronit Nandeshwar</div><div class="cert-sig-role">Founder, BeingAI · DocBot</div></div>
+            <div class="cert-stamp">🏅</div>
+            <div class="cert-sig r"><div class="cert-line"></div><div class="cert-sig-name" id="schoolSig">Principal's Signature</div><div class="cert-sig-role" id="schoolSigRole">Your School</div></div>
+          </div>
+        </div>
+        <div class="cert-try">
+          <span class="cert-try-lbl">Try it</span>
+          <input class="cert-inp" id="nameInput" type="text" placeholder="Student name" oninput="updateCert()"/>
+          <input class="cert-inp" id="schoolInput" type="text" placeholder="School name" oninput="updateCert()"/>
+        </div>
+      </div>
+      <div class="cert-pts">
+        <div class="cert-pt"><div class="cpt-ico">🤝</div><div><div class="cpt-t">Co-Certified with Your School</div><div class="cpt-d">Jointly issued — your school's name and principal's signature alongside BeingAI's on every certificate.</div></div></div>
+        <div class="cert-pt"><div class="cpt-ico">🌟</div><div><div class="cpt-t">Recognised AI Credential</div><div class="cpt-d">Signed by Ronit Nandeshwar, featured in The Economic Times — a credential that carries genuine weight.</div></div></div>
+        <div class="cert-pt"><div class="cpt-ico">📁</div><div><div class="cpt-t">Portfolio Ready from Day 15</div><div class="cpt-d">Shareable on LinkedIn, in college applications, and in academic portfolios from the moment it's issued.</div></div></div>
+        <div class="cert-pt"><div class="cpt-ico">🏆</div><div><div class="cpt-t">Special Recognition</div><div class="cpt-d">Top performers, most improved, and most creative students receive additional recognition on their certificate.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="s s-soft" id="testimonials">
+  <div class="container">
+    <div class="s-label">Real Results</div>
+    <h2 class="tt">What students &amp; parents experienced</h2>
+    <p class="sub">From AI session participants — real work produced, real improvements seen.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem" class="reveal">
+
+      <!-- CARD 1 — PPT -->
+      <div class="tcard">
+        <div class="tcard-screen">
+          <div class="proof-tag">Verified Output</div>
+          <div class="ss-ppt">
+            <div class="ss-bar" style="background:#1D4ED8">
+              <div class="ss-dot"></div><div class="ss-dot"></div><div class="ss-dot"></div>
+              <span class="ss-lbl">Canva AI · Presentation</span>
+            </div>
+            <div class="ppt-title"><p>Climate Change &amp;<br>Our Future — Class 9</p></div>
+            <div class="ppt-body">
+              <div class="ppt-line" style="width:90%"></div>
+              <div class="ppt-line" style="width:68%"></div>
+              <div class="ppt-line" style="width:80%"></div>
+              <div style="display:flex;gap:.25rem;margin-top:.15rem">
+                <div style="width:26px;height:16px;background:rgba(26,110,228,.12);border-radius:3px"></div>
+                <div style="width:26px;height:16px;background:rgba(5,150,105,.12);border-radius:3px"></div>
+                <div style="width:26px;height:16px;background:rgba(245,158,11,.12);border-radius:3px"></div>
+              </div>
+            </div>
+            <div class="ppt-slides">
+              <div class="ppt-slide-mini"></div><div class="ppt-slide-mini"></div><div class="ppt-slide-mini"></div>
+              <div class="ppt-slide-mini"></div><div class="ppt-slide-mini"></div>
+            </div>
+            <div class="ppt-footer">Slide 1 of 10 · Created in 38 mins</div>
+          </div>
+        </div>
+        <div class="tcard-body">
+          <div class="tcard-quote">My son came home on Day 4 with a complete 10-slide presentation on climate change that looked better than anything his school had assigned. He made it in under an hour using AI. I was speechless.</div>
+          <div class="tcard-person">
+            <div class="tcard-av" style="background:var(--blue)">PM</div>
+            <div>
+              <div class="tcard-name">Priya Meshram</div>
+              <div class="tcard-role">Parent · Class 9 student · Nagpur</div>
+              <div class="tcard-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 — QUIZ -->
+      <div class="tcard">
+        <div class="tcard-screen">
+          <div class="proof-tag">Verified Output</div>
+          <div class="ss-quiz">
+            <div class="ss-bar" style="background:#059669">
+              <div class="ss-dot"></div><div class="ss-dot"></div><div class="ss-dot"></div>
+              <span class="ss-lbl">AI Quiz Bank · Science Ch.3</span>
+            </div>
+            <div class="quiz-q">Q. Which organelle is called the powerhouse of the cell?</div>
+            <div class="quiz-opts">
+              <div class="quiz-opt">A. Nucleus</div>
+              <div class="quiz-opt ok">B. Mitochondria ✓</div>
+              <div class="quiz-opt">C. Ribosome</div>
+              <div class="quiz-opt">D. Golgi body</div>
+            </div>
+            <div class="quiz-foot">✓ 50 questions generated · Class 8 Science</div>
+          </div>
+        </div>
+        <div class="tcard-body">
+          <div class="tcard-quote">My daughter generated 50 practice questions for her Science exam in literally 3 minutes. She practised all week and scored her highest-ever marks in the unit test. Revision actually became fun.</div>
+          <div class="tcard-person">
+            <div class="tcard-av" style="background:var(--teal)">SD</div>
+            <div>
+              <div class="tcard-name">Sangeeta Deshmukh</div>
+              <div class="tcard-role">Parent · Class 8 student · Nagpur</div>
+              <div class="tcard-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 — ESSAY -->
+      <div class="tcard">
+        <div class="tcard-screen">
+          <div class="proof-tag">Verified Output</div>
+          <div class="ss-essay">
+            <div class="ss-bar" style="background:#7C3AED">
+              <div class="ss-dot"></div><div class="ss-dot"></div><div class="ss-dot"></div>
+              <span class="ss-lbl">AI Writing · Essay</span>
+            </div>
+            <div class="essay-head">The Impact of Technology on Education</div>
+            <div class="essay-body">
+              <div class="ppt-line" style="width:95%"></div>
+              <div class="ppt-line" style="width:88%"></div>
+              <div class="ppt-line" style="width:92%"></div>
+              <div class="ppt-line" style="width:72%"></div>
+              <div class="ppt-line" style="width:85%"></div>
+              <div class="ppt-line" style="width:78%"></div>
+            </div>
+            <div class="essay-foot">✓ 520 words · Original · Grammar checked · 22 mins</div>
+          </div>
+        </div>
+        <div class="tcard-body">
+          <div class="tcard-quote">I always struggled with essay writing. On Day 6 I used the AI framework Ronit taught us and finished a 500-word essay in 22 minutes. My English teacher gave me the highest marks I've got all year.</div>
+          <div class="tcard-person">
+            <div class="tcard-av" style="background:#7C3AED">AK</div>
+            <div>
+              <div class="tcard-name">Aditya Khandwe</div>
+              <div class="tcard-role">Student · Class 10 · Nagpur</div>
+              <div class="tcard-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="s s-ink" id="pricing">
+  <div class="container">
+    <div class="s-label dk am">School Partnership</div>
+    <h2 class="tt dk">Simple. Transparent.<br>Zero risk for schools.</h2>
+    <p class="sub dk">We handle everything. Your school provides the space.</p>
+    <div class="price-grid reveal">
+      <div class="price-card feat">
+        <div class="pi-lbl">Per Student — Launch Price</div>
+        <div class="pi-n">₹1,500</div>
+        <div class="pi-was">₹5,000 regular price</div>
+        <div class="pi-d">All-inclusive — 15 days, instruction, materials &amp; co-certification</div>
+      </div>
+      <div class="price-card">
+        <div class="pi-lbl">Min. Students Per Batch</div>
+        <div class="pi-n">50+</div>
+        <div class="pi-d">Minimum 50 students per batch. April &amp; May 2026 slots available now.</div>
+      </div>
+      <div class="price-card">
+        <div class="pi-lbl">School's Investment</div>
+        <div class="pi-n">₹0</div>
+        <div class="pi-d">Zero cost to the school. We use your existing facilities — that's all we need.</div>
+      </div>
+    </div>
+    <div class="steps-box reveal">
+      <div class="steps-lbl">How to Get Started — 5 Steps</div>
+      <div class="step-row"><div class="step-num" style="background:var(--sky)">1</div><div class="step-b"><strong>School confirms</strong>Principal approves and shares student list</div></div>
+      <div class="step-row"><div class="step-num" style="background:var(--teal)">2</div><div class="step-b"><strong>Students enrol</strong>School manages enrolment and fee collection</div></div>
+      <div class="step-row"><div class="step-num" style="background:var(--amber);color:var(--ink)">3</div><div class="step-b"><strong>BeingAI delivers</strong>All 15 days run entirely by our expert team</div></div>
+      <div class="step-row"><div class="step-num" style="background:var(--coral)">4</div><div class="step-b"><strong>Certificates issued</strong>Co-certified by school + BeingAI on Day 15</div></div>
+      <div class="step-row"><div class="step-num" style="background:var(--blue)">5</div><div class="step-b"><strong>Impact shared</strong>School receives full student achievement summary</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s s-soft" id="trust">
+  <div class="container">
+    <div class="s-label">Who Is Behind BeingAI</div>
+    <h2 class="tt">Curriculum built by a<br>verified AI expert</h2>
+    <div class="trust-grid reveal">
+      <div>
+        <div class="expert-card">
+          <div class="ex-name">Ronit Nandeshwar</div>
+          <div class="ex-role">Founder, DocBot Pvt. Ltd. &nbsp;·&nbsp; AI Expert &amp; Educator<br>Graduate, NIT Calicut &nbsp;·&nbsp; Based in Nagpur</div>
+          <div class="ex-pills">
+            <div class="ex-pill">🏆 AI Expert</div>
+            <div class="ex-pill">🎤 Speaker</div>
+            <div class="ex-pill">🏗️ Founder, DocBot</div>
+            <div class="ex-pill">🎓 NIT Calicut</div>
+            <div class="ex-pill">📍 Nagpur</div>
+          </div>
+          <div class="ex-quote">"Built DocBot — an AI device measuring 6 vital signs in 90 seconds with medical-grade accuracy. Delivered AI training to VP-level MSME leaders across India."</div>
+          <div class="g-box">
+            <div class="g-logo"><span class="gb">G</span><span class="gr">o</span><span class="gy">o</span><span class="gb">g</span><span class="gg">l</span><span class="gr">e</span></div>
+            <div>
+              <div class="g-text">🔍 Ronit Nandeshwar</div>
+              <div class="g-sub">Search on Google — he ranks #1 as an AI expert</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="margin-bottom:1.5rem">
+          <div style="font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(11,31,53,.38);margin-bottom:.7rem">As Featured In</div>
+          <div class="media-row">
+            <div class="media-chip">📰 The Economic Times</div>
+            <div class="media-chip">📰 Navbharat Times</div>
+            <div class="media-chip">📰 National Publications</div>
+          </div>
+        </div>
+        <div class="trust-pts">
+          <div class="tp-row"><div class="tp-ico">✅</div><div><div class="tp-t">Real-World AI Practitioner</div><div class="tp-d">Not a theory teacher — a practitioner who has built AI products used in real healthcare settings.</div></div></div>
+          <div class="tp-row"><div class="tp-ico">📰</div><div><div class="tp-t">Nationally Recognised</div><div class="tp-d">Featured in The Economic Times and Navbharat Times for AI education and innovation.</div></div></div>
+          <div class="tp-row"><div class="tp-ico">📍</div><div><div class="tp-t">Local to Nagpur</div><div class="tp-d">BeingAI is from Nagpur — invested in making Nagpur students future-ready.</div></div></div>
+          <div class="tp-row"><div class="tp-ico">🏫</div><div><div class="tp-t">School-Safe &amp; Age-Appropriate</div><div class="tp-d">Every session is supervised and designed for school students — not generic adult training.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="faq">
+  <div class="container" style="text-align:center">
+    <div class="s-label" style="justify-content:center">Common Questions</div>
+    <h2 class="tt">Schools &amp; parents ask us</h2>
+    <div class="faq-wrap reveal">
+      <div class="fi"><button class="fq" onclick="faq(this)">What classes is this for?<span class="fi-ic">+</span></button><div class="fa">BeingAI is designed for Classes 4 to 10. Sessions are age-appropriate — younger students explore simpler AI tools while older students work on career applications and advanced projects.</div></div>
+      <div class="fi"><button class="fq" onclick="faq(this)">Do students need any prior knowledge of AI?<span class="fi-ic">+</span></button><div class="fa">Not at all. Day 1 starts with "What is AI?" explained through movies and apps they already know. No coding required. If a student can use a smartphone, they are ready.</div></div>
+      <div class="fi"><button class="fq" onclick="faq(this)">What does the school need to provide?<span class="fi-ic">+</span></button><div class="fa">Only a classroom or computer lab with internet access and devices. BeingAI handles all content, instruction, and delivery. The school provides only the space.</div></div>
+      <div class="fi"><button class="fq" onclick="faq(this)">Is this safe for children?<span class="fi-ic">+</span></button><div class="fa">Completely. All tools are age-appropriate, supervised, and curated for school students. Day 14 covers AI ethics, digital safety, and responsible use. Parents can be fully confident.</div></div>
+      <div class="fi"><button class="fq" onclick="faq(this)">Why only 2 schools per area?<span class="fi-ic">+</span></button><div class="fa">To maintain the highest quality, BeingAI limits partnerships to 2 schools per area per season. This ensures Ronit personally oversees every batch — not outsourced instructors. It's about quality, not scale.</div></div>
+      <div class="fi"><button class="fq" onclick="faq(this)">Why is the launch price ₹1,500 and not ₹5,000?<span class="fi-ic">+</span></button><div class="fa">₹5,000 is the regular programme fee. As BeingAI launches from Nagpur, we are offering an introductory rate of ₹1,500 to reach as many Nagpur students as possible in 2026. This offer applies to this year's batches only.</div></div>
+      <div class="fi"><button class="fq" onclick="faq(this)">When are the 2026 batches?<span class="fi-ic">+</span></button><div class="fa">April 2026 and May 2026 batches are available. Schools that confirm early get priority scheduling. Only 2 slots per area — reach out immediately to check if your area's slot is still open.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-s" id="contact">
+  <div class="container">
+    <div class="cta-urgency">🔥 Only 2 school slots per area — check availability today</div>
+    <h2>Let's bring BeingAI<br>to your school.</h2>
+    <p>April &amp; May 2026 batches filling fast. Schedule a visit — zero obligations.</p>
+    <div class="cta-btns">
+      <a href="mailto:hello@beingai.in" class="btn-a">Schedule a School Visit →</a>
+      <a href="https://wa.me/919881437689" class="btn-g">WhatsApp Us</a>
+    </div>
+    <p class="cta-note">Zero infrastructure cost &nbsp;·&nbsp; Co-certified credentials &nbsp;·&nbsp; Expert-led &nbsp;·&nbsp; Classes 4–10 &nbsp;·&nbsp; Nagpur</p>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">Being<em>AI</em></div>
+  <div class="flinks">
+    <a href="#outcomes">Outcomes</a>
+    <a href="#curriculum">Curriculum</a>
+    <a href="#cert">Certificate</a>
+    <a href="#testimonials">Results</a>
+    <a href="#trust">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="fc">© 2026 BeingAI &nbsp;·&nbsp; beingai.in &nbsp;·&nbsp; Nagpur, Maharashtra</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40),{passive:true})
+
+function showTab(id,btn){
+  document.querySelectorAll('.tp').forEach(p=>p.classList.remove('on'))
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'))
+  document.getElementById('tp-'+id).classList.add('on')
+  btn.classList.add('on')
+}
+
+function faq(btn){
+  const item=btn.parentElement,open=item.classList.contains('open')
+  document.querySelectorAll('.fi').forEach(i=>i.classList.remove('open'))
+  if(!open)item.classList.add('open')
+}
+
+function updateCert(){
+  const n=document.getElementById('nameInput').value.trim()
+  const sc=document.getElementById('schoolInput').value.trim()
+  document.getElementById('certName').textContent=n||'Arjun Sharma'
+  document.getElementById('schoolNameLbl').textContent=sc||'Your School'
+  document.getElementById('schoolSig').textContent=sc?'Principal, '+sc:"Principal's Signature"
+  document.getElementById('schoolSigRole').textContent=sc||'Your School'
+}
+
+(function(){
+  const slider=document.getElementById('baSlider')
+  const before=document.getElementById('baBefore')
+  const divider=document.getElementById('baDivider')
+  const handle=document.getElementById('baHandle')
+  let drag=false
+
+  function setPos(pct){
+    pct=Math.max(4,Math.min(96,pct))
+    before.style.clipPath='inset(0 '+(100-pct)+'% 0 0)'
+    divider.style.left=pct+'%'
+  }
+  setPos(50)
+
+  function getX(e){return e.touches?e.touches[0].clientX:e.clientX}
+  handle.addEventListener('mousedown',e=>{drag=true;e.preventDefault()})
+  handle.addEventListener('touchstart',()=>drag=true,{passive:true})
+  window.addEventListener('mousemove',e=>{if(!drag)return;const r=slider.getBoundingClientRect();setPos(((getX(e)-r.left)/r.width)*100)},{passive:true})
+  window.addEventListener('touchmove',e=>{if(!drag)return;const r=slider.getBoundingClientRect();setPos(((getX(e)-r.left)/r.width)*100)},{passive:true})
+  window.addEventListener('mouseup',()=>drag=false)
+  window.addEventListener('touchend',()=>drag=false)
+  slider.addEventListener('click',e=>{const r=slider.getBoundingClientRect();setPos(((e.clientX-r.left)/r.width)*100)})
+
+  const obs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      let p=82,dir=-1
+      const t=setInterval(()=>{
+        p+=dir*1.3
+        if(p<=18){dir=1}else if(p>=82&&dir===1){clearInterval(t);setPos(50);return}
+        setPos(p)
+      },16)
+      obs.unobserve(slider)
+    }
+  },{threshold:.32})
+  obs.observe(slider)
+})()
+
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(el=>{if(el.isIntersecting){el.target.classList.add('in');ro.unobserve(el.target)}})
+},{threshold:.06})
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el))
+</script>
+</body>
+</html>
