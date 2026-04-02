@@ -9,7 +9,7 @@
 /* ═══════════ RESET & TOKENS ═══════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
-body{font-family:'Plus Jakarta Sans',sans-serif;color:#0B1F35;background:#fff;overflow-x:hidden;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:#0B1F35;background:#050D1A;overflow-x:hidden;line-height:1.65;-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{font-family:'Fraunces',serif;line-height:1.1;letter-spacing:-.025em;font-weight:900}
 a{text-decoration:none;color:inherit}
 img,svg{display:block;max-width:100%}
@@ -70,6 +70,7 @@ button{cursor:pointer;font-family:inherit}
   display:flex;align-items:center;justify-content:center;
   text-align:center;padding:90px 5vw 70px;
   background:#050D1A;
+  isolation:isolate;
 }
 /* Mesh gradient bg */
 .hero-bg{
@@ -229,26 +230,116 @@ button{cursor:pointer;font-family:inherit}
 
 /* ═══════════ SECTION BASE ═══════════ */
 .s{padding:96px 5vw}
-.s-soft{background:var(--soft)}
+.s-soft{background:linear-gradient(180deg,#F4F7FB 0%,#EEF3F9 100%)}
 .s-ink{background:var(--ink)}
-.s-warm{background:#FAFAF8}
+.s-warm{background:linear-gradient(180deg,#FAFAF8 0%,#F2F1EC 100%)}
 .container{max-width:1100px;margin:0 auto}
 
 .s-tag{
   display:inline-flex;align-items:center;gap:.4rem;
   font-size:.67rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--blue);margin-bottom:.7rem;
+  color:var(--blue);margin-bottom:.7rem;position:relative;
 }
-.s-tag::before{content:'';width:18px;height:2px;background:currentColor;border-radius:2px;flex-shrink:0}
+.s-tag::before{
+  content:'';width:18px;height:2px;
+  background:currentColor;border-radius:2px;flex-shrink:0;
+  transition:width .5s cubic-bezier(.16,1,.3,1);
+}
+.s-tag..in::before{width:28px}
 .s-tag.dk{color:rgba(255,255,255,.4)}
 .s-tag.am{color:var(--amber)}
 .s-tag.center{justify-content:center}
 
-h2.tt{font-size:clamp(1.9rem,4vw,2.9rem);margin-bottom:.7rem;font-weight:900}
+h2.tt{font-size:clamp(1.9rem,4vw,2.9rem);margin-bottom:.7rem;font-weight:900;margin-top:.2rem}
 h2.tt.dk{color:#fff}
-.sub{font-size:.93rem;color:rgba(11,31,53,.5);max-width:480px;line-height:1.75}
+.sub{font-size:.93rem;color:rgba(11,31,53,.5);max-width:480px;line-height:1.75;margin-top:.2rem}
 .sub.dk{color:rgba(255,255,255,.42)}
 .sub.center{text-align:center;margin:0 auto}
+
+/* ── Shine sweep on hoverable cards ── */
+.oc,.tcard{isolation:isolate}
+/* Outcome card shine */
+.oc::after{
+  content:'';position:absolute;
+  top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  transform:skewX(-15deg);pointer-events:none;z-index:2;
+  transition:left .6s ease;
+}
+.oc:hover::after{left:140%}
+
+/* ── WA pulse ring ── */
+.wa-btn::before{
+  content:'';position:absolute;width:100%;height:100%;border-radius:50%;
+  background:#25D366;opacity:.35;
+  animation:waPulse 2.5s ease-out infinite;
+}
+@keyframes waPulse{0%{transform:scale(1);opacity:.3}100%{transform:scale(1.75);opacity:0}}
+
+/* ── Nav link underline ── */
+.n-links a:not(.n-cta){position:relative}
+.n-links a:not(.n-cta)::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;
+  background:var(--amber);border-radius:2px;
+  transition:width .25s cubic-bezier(.16,1,.3,1);
+}
+.n-links a:not(.n-cta):hover::after{width:100%}
+
+/* ── Hero stat glow pulse ── */
+.hs-n{
+  font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;
+  color:var(--amber);line-height:1;
+  animation:statGlow 3s ease-in-out infinite;
+}
+@keyframes statGlow{
+  0%,100%{text-shadow:0 0 0 transparent}
+  50%{text-shadow:0 0 14px rgba(245,158,11,.4)}
+}
+
+/* ── Trust row left accent ── */
+.tp-row{position:relative;overflow:hidden}
+.tp-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(to bottom,var(--blue),var(--sky));
+  border-radius:var(--r) 0 0 var(--r);
+  transition:width .3s cubic-bezier(.16,1,.3,1);
+}
+.tp-row:hover::before{width:3px}
+
+/* ── Pricing card hover ── */
+.pcard{position:relative;overflow:hidden}
+.pcard::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,0));
+  opacity:0;transition:opacity .3s;
+}
+.pcard:hover::before{opacity:1}
+
+/* ── Step num hover scale ── */
+.step-num{transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s}
+.step-r:hover .step-num{transform:scale(1.12);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+
+/* ── Cert designation gradient ── */
+.cert-desig{
+  font-family:'Fraunces',serif;font-size:1.55rem;font-weight:900;
+  background:linear-gradient(135deg,#92400E,var(--amber),#B45309);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:.2rem;
+}
+
+/* ── FAQ open glow ── */
+.fi.open{box-shadow:0 4px 20px rgba(26,110,228,.1)}
+
+/* ── Section divider wave ── */
+.s-ink{position:relative}
+.s-ink::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%,rgba(59,158,255,.06),transparent),
+    radial-gradient(ellipse 40% 40% at 80% 30%,rgba(5,150,105,.05),transparent);
+  pointer-events:none;
+}
 
 /* ═══════════ WHY STATS ═══════════ */
 .why-grid{
@@ -264,19 +355,26 @@ h2.tt.dk{color:#fff}
   border:1.5px solid var(--border);
   box-shadow:var(--sh);
   display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  min-height:160px;justify-content:center;
   transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;
   position:relative;overflow:hidden;
 }
+.why-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0),rgba(255,255,255,.6));
+  opacity:0;transition:opacity .3s;
+}
 .why-card::after{
   content:'';position:absolute;bottom:0;left:0;right:0;
-  height:3px;border-radius:0 0 var(--r) var(--r);
-  transition:opacity .3s;
+  height:3px;border-radius:0;
+  transition:height .3s cubic-bezier(.16,1,.3,1);
 }
-.why-card:nth-child(1)::after{background:var(--blue)}
-.why-card:nth-child(2)::after{background:var(--teal)}
-.why-card:nth-child(3)::after{background:var(--amber)}
-.why-card:nth-child(4)::after{background:var(--coral)}
+.why-card:nth-child(1)::after{background:linear-gradient(90deg,var(--blue),var(--sky))}
+.why-card:nth-child(2)::after{background:linear-gradient(90deg,var(--teal),#34D399)}
+.why-card:nth-child(3)::after{background:linear-gradient(90deg,var(--amber),#FCD34D)}
+.why-card:nth-child(4)::after{background:linear-gradient(90deg,var(--coral),#F87171)}
 .why-card:hover{transform:translateY(-6px);box-shadow:var(--sh-md)}
+.why-card:hover::after{height:5px}
 .why-n{font-family:'Fraunces',serif;font-size:2.7rem;font-weight:900;line-height:1}
 .why-l{font-size:.82rem;color:rgba(11,31,53,.5);font-weight:600;line-height:1.5}
 
@@ -424,10 +522,15 @@ h2.tt.dk{color:#fff}
 }
 @media(max-width:900px){.days-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){.days-grid{grid-template-columns:repeat(2,1fr)}}
+/* Day 15 spans full width of its row on all breakpoints */
+.day.gold{grid-column:1/-1}
+@media(max-width:900px){.day.gold{grid-column:1/-1}}
+@media(max-width:520px){.day.gold{grid-column:1/-1}}
 .day{
   background:#fff;border:1.5px solid var(--border);
   border-radius:var(--r);padding:1.1rem 1rem;
-  display:flex;flex-direction:column;min-height:112px;
+  display:flex;flex-direction:column;
+  min-height:112px;
   box-shadow:var(--sh);
   transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s;
 }
@@ -444,10 +547,12 @@ h2.tt.dk{color:#fff}
 .day.gold{
   border-color:var(--amber)!important;
   background:linear-gradient(135deg,#FFFBEB,#FEF3C7);
+  min-height:auto;flex-direction:row;align-items:center;gap:2rem;
+  padding:1.2rem 2rem;
 }
-.day.gold .day-n{color:#92400E}
-.day.gold .day-tt{color:var(--coral)}
-.day.gold .day-op{color:rgba(11,31,53,.55)}
+.day.gold .day-n{color:#92400E;margin-bottom:0;white-space:nowrap;flex-shrink:0}
+.day.gold .day-tt{color:var(--coral);font-size:1rem;flex:1;margin-bottom:0}
+.day.gold .day-op{color:rgba(11,31,53,.55);white-space:nowrap;flex-shrink:0}
 
 /* ═══════════ CERTIFICATE ═══════════ */
 .cert-layout{
@@ -512,14 +617,14 @@ h2.tt.dk{color:#fff}
 .cert-stamp{width:40px;height:40px;border:2px solid rgba(200,136,14,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
 .cert-try{
   background:var(--soft);border-top:1px dashed rgba(11,31,53,.1);
-  padding:.9rem 2.4rem;display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;
+  padding:.9rem 1.6rem;display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;
 }
 .cert-try-lbl{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(11,31,53,.32)}
 .cert-inp{
   border:1.5px solid var(--border);border-radius:8px;
   padding:.32rem .68rem;font-size:.78rem;
   font-family:inherit;outline:none;
-  width:130px;background:#fff;
+  width:min(130px,38vw);background:#fff;
   transition:border-color .2s,box-shadow .2s;
 }
 .cert-inp:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,158,11,.12)}
@@ -539,10 +644,14 @@ h2.tt.dk{color:#fff}
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:1.25rem;margin-top:2.5rem;
-  /* Key: align-items:stretch ensures equal height */
   align-items:stretch;
 }
-@media(max-width:820px){.testi-grid{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}}
+@media(max-width:820px){
+  .testi-grid{
+    grid-template-columns:minmax(0,480px);
+    justify-content:center;
+  }
+}
 .tcard{
   background:#fff;border:1.5px solid var(--border);
   border-radius:var(--r);overflow:hidden;
@@ -767,25 +876,81 @@ footer{
 .flinks a{font-size:.72rem;color:rgba(255,255,255,.28);transition:color .2s}
 .flinks a:hover{color:rgba(255,255,255,.8)}
 
-/* ═══════════ REVEAL ANIMATIONS ═══════════ */
-.rv{opacity:0;transform:translateY(28px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
-.rv.in{opacity:1;transform:none}
-.rv-d1{transition-delay:.07s}.rv-d2{transition-delay:.14s}
-.rv-d3{transition-delay:.21s}.rv-d4{transition-delay:.28s}
-/* Stagger for card grids */
-.rv-grid > *{opacity:0;transform:translateY(24px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1)}
-.rv-grid.in > *:nth-child(1){opacity:1;transform:none;transition-delay:.04s}
-.rv-grid.in > *:nth-child(2){opacity:1;transform:none;transition-delay:.1s}
-.rv-grid.in > *:nth-child(3){opacity:1;transform:none;transition-delay:.16s}
-.rv-grid.in > *:nth-child(4){opacity:1;transform:none;transition-delay:.22s}
-.rv-grid.in > *:nth-child(5){opacity:1;transform:none;transition-delay:.1s}
-.rv-grid.in > *:nth-child(6){opacity:1;transform:none;transition-delay:.16s}
-.rv-grid.in > *:nth-child(7){opacity:1;transform:none;transition-delay:.22s}
-.rv-grid.in > *:nth-child(8){opacity:1;transform:none;transition-delay:.28s}
 
-/* Horizontal slide for trust points */
-.rv-slide{opacity:0;transform:translateX(-20px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1)}
-.rv-slide.in{opacity:1;transform:none}
+/* ═══ ANIMATIONS ═══ */
+/* Hero elements fade in */
+.hero-chip{animation:fadeDown .7s .1s ease both}
+.hero-urgency{animation:fadeDown .7s .2s ease both}
+.hero h1{animation:fadeDown .8s .3s ease both}
+.hero-sub{animation:fadeDown .7s .4s ease both}
+.hero-btns{animation:fadeDown .7s .5s ease both}
+.hero-stats{animation:fadeDown .7s .6s ease both}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+
+/* WA pulse ring */
+.wa-btn::before{content:'';position:absolute;width:100%;height:100%;border-radius:50%;background:#25D366;opacity:.3;animation:waPulse 2.5s ease-out infinite}
+@keyframes waPulse{0%{transform:scale(1);opacity:.28}100%{transform:scale(1.8);opacity:0}}
+
+/* Ticker pause on hover */
+.ticker-wrap:hover .ticker{animation-play-state:paused}
+
+/* Card hover lifts */
+.why-card{transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s}
+.why-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(11,31,53,.14)}
+.oc{transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s,border-color .28s}
+.oc:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(11,31,53,.12);border-color:rgba(26,110,228,.25)}
+.tcard{transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s}
+.tcard:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(11,31,53,.14)}
+.day{transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s,border-color .22s}
+.day:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(26,110,228,.12);border-color:rgba(26,110,228,.3)}
+.fi{transition:border-color .22s,box-shadow .22s}
+.fi.open{border-color:rgba(26,110,228,.3);box-shadow:0 4px 20px rgba(26,110,228,.1)}
+.pcard{transition:transform .25s cubic-bezier(.16,1,.3,1),background .22s}
+.pcard:hover{transform:translateY(-4px);background:rgba(255,255,255,.12)}
+.tp-row{transition:transform .22s cubic-bezier(.16,1,.3,1),border-color .22s,box-shadow .22s}
+.tp-row:hover{transform:translateX(4px);border-color:rgba(26,110,228,.25);box-shadow:0 4px 16px rgba(11,31,53,.08)}
+.tab{transition:background .18s,border-color .18s,color .18s,transform .18s}
+.tab:hover:not(.on){border-color:rgba(11,31,53,.25);color:var(--ink);transform:translateY(-1px)}
+.tab.on{transform:none}
+.n-cta{transition:opacity .18s,transform .18s,box-shadow .18s}
+.n-cta:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 4px 14px rgba(245,158,11,.38)}
+.cert-doc{transition:box-shadow .28s}
+.cert-doc:hover{box-shadow:0 16px 56px rgba(11,31,53,.16)}
+.tp-ico{transition:transform .22s cubic-bezier(.16,1,.3,1)}
+.tp-row:hover .tp-ico{transform:scale(1.12)}
+
+/* Gold pulsing border on Day 15 */
+.day.gold{animation:goldPulse 3s ease-in-out infinite}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0)}50%{box-shadow:0 0 0 4px rgba(245,158,11,.18)}}
+
+/* Cert shimmer */
+.cert-shimmer{animation:shimmer 2.5s linear infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Scroll indicator bounce */
+.scroll-line{animation:scrollBounce 2s ease-in-out infinite}
+@keyframes scrollBounce{0%,100%{transform:scaleY(1);opacity:.5}50%{transform:scaleY(.4);opacity:.2}}
+
+/* Nav link underline slide */
+.n-links a:not(.n-cta){position:relative}
+.n-links a:not(.n-cta)::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--amber);border-radius:2px;transition:width .22s cubic-bezier(.16,1,.3,1)}
+.n-links a:not(.n-cta):hover::after{width:100%}
+
+/* Outcome card accent line grows on hover */
+.oc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--blue),var(--sky));transform:scaleY(0);transform-origin:bottom;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.oc:hover::before{transform:scaleY(1)}
+
+/* Stat numbers glow */
+.hs-n{animation:statGlow 3s ease-in-out infinite}
+@keyframes statGlow{0%,100%{text-shadow:none}50%{text-shadow:0 0 16px rgba(245,158,11,.45)}}
+
+/* Float orbs */
+.hero-orb-1{animation:float1 8s ease-in-out infinite}
+.hero-orb-2{animation:float2 10s ease-in-out infinite}
+.hero-orb-3{animation:float3 12s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-18px,24px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(16px,-20px)}}
+@keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(12px,16px)}}
 </style>
 </head>
 <body>
@@ -844,10 +1009,10 @@ footer{
 <!-- ═══════════ WHY AI ═══════════ -->
 <section class="s s-soft">
   <div class="container">
-    <div class="s-tag rv">Why It Matters Now</div>
-    <h2 class="tt rv">AI is reshaping education.<br>Is your child ready?</h2>
-    <p class="sub rv">The gap between AI-literate and AI-unaware students grows every year. BeingAI closes it — in one summer, right here in Nagpur.</p>
-    <div class="why-grid rv-grid">
+    <div class="s-tag ">Why It Matters Now</div>
+    <h2 class="tt ">AI is reshaping education.<br>Is your child ready?</h2>
+    <p class="sub ">The gap between AI-literate and AI-unaware students grows every year. BeingAI closes it — in one summer, right here in Nagpur.</p>
+    <div class="why-grid ">
       <div class="why-card"><div class="why-n" style="color:var(--blue)">75%</div><div class="why-l">of jobs by 2030 will need AI &amp; digital literacy</div></div>
       <div class="why-card"><div class="why-n" style="color:var(--teal)">40%</div><div class="why-l">more study efficiency with the right AI tools</div></div>
       <div class="why-card"><div class="why-n" style="color:var(--amber)">NEP</div><div class="why-l">2020 mandates digital learning in schools nationally</div></div>
@@ -859,10 +1024,10 @@ footer{
 <!-- ═══════════ OUTCOMES ═══════════ -->
 <section class="s" id="outcomes">
   <div class="container">
-    <div class="s-tag rv">Skills That Actually Help</div>
-    <h2 class="tt rv">8 skills that directly<br>boost school performance</h2>
-    <p class="sub rv">Every skill links to subjects students study right now. Pure application from Day 1.</p>
-    <div class="oc-grid rv-grid">
+    <div class="s-tag ">Skills That Actually Help</div>
+    <h2 class="tt ">8 skills that directly<br>boost school performance</h2>
+    <p class="sub ">Every skill links to subjects students study right now. Pure application from Day 1.</p>
+    <div class="oc-grid ">
       <div class="oc"><span class="oc-em">📖</span><div class="oc-t">Read Any Chapter Fast</div><div class="oc-d">Summarise any chapter in 30 minutes with AI tools.</div><div class="oc-pill">All Subjects</div></div>
       <div class="oc"><span class="oc-em">🎯</span><div class="oc-t">Unlimited Exam Practice</div><div class="oc-d">Generate personalised MCQs and test papers for any chapter.</div><div class="oc-pill">Exam Prep</div></div>
       <div class="oc"><span class="oc-em">📊</span><div class="oc-t">Pro Presentations</div><div class="oc-d">10-slide school presentations built in under 45 minutes.</div><div class="oc-pill">Projects</div></div>
@@ -878,10 +1043,10 @@ footer{
 <!-- ═══════════ BEFORE / AFTER ═══════════ -->
 <section class="s s-ink">
   <div class="container">
-    <div class="s-tag dk am rv">The Transformation</div>
-    <h2 class="tt dk rv">See the difference BeingAI makes</h2>
-    <p class="sub dk rv">Drag the handle to compare life before and after the camp.</p>
-    <div class="ba-wrap rv">
+    <div class="s-tag dk am ">The Transformation</div>
+    <h2 class="tt dk ">See the difference BeingAI makes</h2>
+    <p class="sub dk ">Drag the handle to compare life before and after the camp.</p>
+    <div class="ba-wrap ">
       <div class="ba-slider" id="baSlider">
         <div class="ba-side ba-after">
           <div class="ba-badge">🚀 After BeingAI</div>
@@ -913,9 +1078,9 @@ footer{
 <!-- ═══════════ IMPACT TABS ═══════════ -->
 <section class="s" id="impact">
   <div class="container">
-    <div class="s-tag rv">Real Impact</div>
-    <h2 class="tt rv">Meaningful results for<br>every stakeholder</h2>
-    <div class="rv">
+    <div class="s-tag ">Real Impact</div>
+    <h2 class="tt ">Meaningful results for<br>every stakeholder</h2>
+    <div>
       <div class="tabs">
         <button class="tab on" onclick="showTab('s',this)">For Students</button>
         <button class="tab" onclick="showTab('p',this)">For Parents</button>
@@ -958,10 +1123,10 @@ footer{
 <!-- ═══════════ CURRICULUM ═══════════ -->
 <section class="s s-soft" id="curriculum">
   <div class="container">
-    <div class="s-tag rv">15-Day Programme</div>
-    <h2 class="tt rv">Every day has a clear output</h2>
-    <p class="sub rv">Students create something they can use every single day. No passive watching.</p>
-    <div class="days-grid rv-grid">
+    <div class="s-tag ">15-Day Programme</div>
+    <h2 class="tt ">Every day has a clear output</h2>
+    <p class="sub ">Students create something they can use every single day. No passive watching.</p>
+    <div class="days-grid">
       <div class="day"><div class="day-n">Day 01</div><div class="day-tt">Meet Your AI Study Partner</div><div class="day-op">📦 Personal AI Toolkit — 5 tools</div></div>
       <div class="day"><div class="day-n">Day 02</div><div class="day-tt">Read Any Chapter in 30 Min</div><div class="day-op">📦 AI cheat sheet for any chapter</div></div>
       <div class="day"><div class="day-n">Day 03</div><div class="day-tt">Build Your Exam Quiz Bank</div><div class="day-op">📦 50-question personalised quiz bank</div></div>
@@ -976,7 +1141,7 @@ footer{
       <div class="day"><div class="day-n">Day 12</div><div class="day-tt">Explore AI Careers of 2030</div><div class="day-op">📦 Personalised AI career roadmap</div></div>
       <div class="day"><div class="day-n">Day 13</div><div class="day-tt">Build Your First AI Project</div><div class="day-op">📦 Working project — presented live</div></div>
       <div class="day"><div class="day-n">Day 14</div><div class="day-tt">Use AI Responsibly</div><div class="day-op">📦 Personal AI ethics pledge</div></div>
-      <div class="day gold"><div class="day-n">Day 15</div><div class="day-tt">🎓 Graduation Day</div><div class="day-op">🏆 Certificate + 3-Month Plan</div></div>
+      <div class="day gold"><div class="day-n">Day 15</div><div class="day-tt">🎓 Graduation Day — You Are AI-Powered!</div><div class="day-op">🏆 BeingAI Certificate + 3-Month Learning Plan</div></div>
     </div>
   </div>
 </section>
@@ -984,9 +1149,9 @@ footer{
 <!-- ═══════════ CERTIFICATE ═══════════ -->
 <section class="s s-warm" id="cert">
   <div class="container">
-    <div class="s-tag rv">Recognition That Counts</div>
-    <h2 class="tt rv">A certificate co-signed by<br>your school &amp; BeingAI</h2>
-    <div class="cert-layout rv">
+    <div class="s-tag ">Recognition That Counts</div>
+    <h2 class="tt ">A certificate co-signed by<br>your school &amp; BeingAI</h2>
+    <div class="cert-layout ">
       <div class="cert-doc">
         <div class="cert-shimmer"></div>
         <div class="cert-inner">
@@ -1037,11 +1202,11 @@ footer{
 <!-- ═══════════ TESTIMONIALS ═══════════ -->
 <section class="s s-soft" id="testimonials">
   <div class="container">
-    <div class="s-tag rv">Real Results</div>
-    <h2 class="tt rv">What students &amp; parents experienced</h2>
-    <p class="sub rv">From AI session participants — real work produced, real improvements seen.</p>
+    <div class="s-tag ">Real Results</div>
+    <h2 class="tt ">What students &amp; parents experienced</h2>
+    <p class="sub ">From AI session participants — real work produced, real improvements seen.</p>
     <!-- 3-col desktop, 1-col mobile, fixed height screenshot zones -->
-    <div class="testi-grid rv-grid">
+    <div class="testi-grid ">
 
       <!-- CARD 1 — PPT -->
       <div class="tcard">
@@ -1156,10 +1321,10 @@ footer{
 <!-- ═══════════ PARTNERSHIP ═══════════ -->
 <section class="s s-ink" id="pricing">
   <div class="container">
-    <div class="s-tag dk am rv">School Partnership</div>
-    <h2 class="tt dk rv">Simple. Transparent.<br>Zero risk for schools.</h2>
-    <p class="sub dk rv">We handle everything. Your school provides the space.</p>
-    <div class="price-grid rv-grid">
+    <div class="s-tag dk am ">School Partnership</div>
+    <h2 class="tt dk ">Simple. Transparent.<br>Zero risk for schools.</h2>
+    <p class="sub dk ">We handle everything. Your school provides the space.</p>
+    <div class="price-grid ">
       <div class="pcard feat">
         <div class="pc-lbl">Per Student — Launch Price</div>
         <div class="pc-n">₹1,500</div>
@@ -1177,7 +1342,7 @@ footer{
         <div class="pc-d">Zero cost to the school. We use your existing facilities — that's all we need.</div>
       </div>
     </div>
-    <div class="steps-box rv">
+    <div class="steps-box ">
       <div class="steps-lbl">How to Get Started — 5 Steps</div>
       <div class="step-r"><div class="step-num" style="background:var(--sky)">1</div><div class="step-body"><strong>School confirms</strong>Principal approves and shares student list</div></div>
       <div class="step-r"><div class="step-num" style="background:var(--teal)">2</div><div class="step-body"><strong>Students enrol</strong>School manages enrolment and fee collection</div></div>
@@ -1191,10 +1356,10 @@ footer{
 <!-- ═══════════ TRUST ═══════════ -->
 <section class="s s-soft" id="trust">
   <div class="container">
-    <div class="s-tag rv">Who Is Behind BeingAI</div>
-    <h2 class="tt rv">Curriculum built by a<br>verified AI expert</h2>
+    <div class="s-tag ">Who Is Behind BeingAI</div>
+    <h2 class="tt ">Curriculum built by a<br>verified AI expert</h2>
     <div class="trust-grid">
-      <div class="rv">
+      <div>
         <div class="expert-card">
           <div class="ex-name">Ronit Nandeshwar</div>
           <div class="ex-role">Founder, DocBot Pvt. Ltd. &nbsp;·&nbsp; AI Expert &amp; Educator<br>Graduate, NIT Calicut &nbsp;·&nbsp; Based in Nagpur</div>
@@ -1216,7 +1381,7 @@ footer{
         </div>
       </div>
       <div>
-        <div style="margin-bottom:1.6rem" class="rv">
+        <div style="margin-bottom:1.6rem">
           <div style="font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(11,31,53,.38);margin-bottom:.7rem">As Featured In</div>
           <div class="media-row">
             <div class="media-chip">📰 The Economic Times</div>
@@ -1225,10 +1390,10 @@ footer{
           </div>
         </div>
         <div class="trust-pts">
-          <div class="tp-row rv-slide"><div class="tp-ico">✅</div><div><div class="tp-t">Real-World AI Practitioner</div><div class="tp-d">Not a theory teacher — a practitioner who has built AI products used in real healthcare settings.</div></div></div>
-          <div class="tp-row rv-slide" style="transition-delay:.08s"><div class="tp-ico">📰</div><div><div class="tp-t">Nationally Recognised</div><div class="tp-d">Featured in The Economic Times and Navbharat Times for AI education and innovation.</div></div></div>
-          <div class="tp-row rv-slide" style="transition-delay:.16s"><div class="tp-ico">📍</div><div><div class="tp-t">Local to Nagpur</div><div class="tp-d">BeingAI is from Nagpur — invested in making Nagpur students future-ready.</div></div></div>
-          <div class="tp-row rv-slide" style="transition-delay:.24s"><div class="tp-ico">🏫</div><div><div class="tp-t">School-Safe &amp; Age-Appropriate</div><div class="tp-d">Every session is supervised and designed specifically for school students.</div></div></div>
+          <div class="tp-row "><div class="tp-ico">✅</div><div><div class="tp-t">Real-World AI Practitioner</div><div class="tp-d">Not a theory teacher — a practitioner who has built AI products used in real healthcare settings.</div></div></div>
+          <div class="tp-row " style="transition-delay:.1s"><div class="tp-ico">📰</div><div><div class="tp-t">Nationally Recognised</div><div class="tp-d">Featured in The Economic Times and Navbharat Times for AI education and innovation.</div></div></div>
+          <div class="tp-row " style="transition-delay:.2s"><div class="tp-ico">📍</div><div><div class="tp-t">Local to Nagpur</div><div class="tp-d">BeingAI is from Nagpur — invested in making Nagpur students future-ready.</div></div></div>
+          <div class="tp-row " style="transition-delay:.3s"><div class="tp-ico">🏫</div><div><div class="tp-t">School-Safe &amp; Age-Appropriate</div><div class="tp-d">Every session is supervised and designed specifically for school students.</div></div></div>
         </div>
       </div>
     </div>
@@ -1238,9 +1403,9 @@ footer{
 <!-- ═══════════ FAQ ═══════════ -->
 <section class="s" id="faq">
   <div class="container" style="text-align:center">
-    <div class="s-tag center rv">Common Questions</div>
-    <h2 class="tt rv">Schools &amp; parents ask us</h2>
-    <div class="faq-wrap rv">
+    <div class="s-tag center ">Common Questions</div>
+    <h2 class="tt ">Schools &amp; parents ask us</h2>
+    <div class="faq-wrap ">
       <div class="fi"><button class="fq" onclick="faq(this)">What classes is this for?<span class="fi-ic">+</span></button><div class="fa">BeingAI is designed for Classes 4 to 10. Sessions are age-appropriate — younger students explore simpler AI tools while older students work on career applications and advanced projects.</div></div>
       <div class="fi"><button class="fq" onclick="faq(this)">Do students need any prior knowledge of AI?<span class="fi-ic">+</span></button><div class="fa">Not at all. Day 1 starts with "What is AI?" explained through movies and apps they already know. No coding required. If a student can use a smartphone, they are ready.</div></div>
       <div class="fi"><button class="fq" onclick="faq(this)">What does the school need to provide?<span class="fi-ic">+</span></button><div class="fa">Only a classroom or computer lab with internet access and devices. BeingAI handles all content, instruction, and delivery. The school provides only the space.</div></div>
@@ -1255,14 +1420,14 @@ footer{
 <!-- ═══════════ CTA ═══════════ -->
 <section class="cta-s" id="contact">
   <div class="container">
-    <div class="cta-urgency rv">🔥 &nbsp;Only 2 school slots per area — check availability today</div>
-    <h2 class="rv">Let's bring BeingAI<br>to your school.</h2>
-    <p class="rv">April &amp; May 2026 batches filling fast.<br>Schedule a visit — zero obligations.</p>
-    <div class="cta-btns rv">
-      <a href="mailto:hello@beingai.in" class="btn-primary">Schedule a School Visit <span>→</span></a>
+    <div class="cta-urgency ">🔥 &nbsp;Only 2 school slots per area — check availability today</div>
+    <h2>Let's bring BeingAI<br>to your school.</h2>
+    <p>April &amp; May 2026 batches filling fast.<br>Schedule a visit — zero obligations.</p>
+    <div class="cta-btns ">
+      <a href="/cdn-cgi/l/email-protection#95fdf0f9f9fad5f7f0fcfbf2f4fcbbfcfb" class="btn-primary">Schedule a School Visit <span>→</span></a>
       <a href="https://wa.me/919881437689" class="btn-secondary">WhatsApp Us</a>
     </div>
-    <p class="cta-note rv">Zero infrastructure cost &nbsp;·&nbsp; Co-certified credentials &nbsp;·&nbsp; Expert-led &nbsp;·&nbsp; Classes 4–10 &nbsp;·&nbsp; Nagpur</p>
+    <p class="cta-note ">Zero infrastructure cost &nbsp;·&nbsp; Co-certified credentials &nbsp;·&nbsp; Expert-led &nbsp;·&nbsp; Classes 4–10 &nbsp;·&nbsp; Nagpur</p>
   </div>
 </section>
 
@@ -1280,7 +1445,7 @@ footer{
   <div class="fc">© 2026 BeingAI &nbsp;·&nbsp; beingai.in &nbsp;·&nbsp; Nagpur, Maharashtra</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── Nav ── */
 const nav = document.getElementById('nav')
 window.addEventListener('scroll', () => nav.classList.toggle('s', scrollY > 50), {passive:true})
@@ -1347,7 +1512,6 @@ function updateCert() {
     setPos(((e.clientX - r.left) / r.width) * 100)
   })
 
-  /* Auto-animate when visible */
   const obs = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting && !animDone) {
       animDone = true
@@ -1364,17 +1528,7 @@ function updateCert() {
   obs.observe(slider)
 })()
 
-/* ── Scroll reveal ── */
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(el => {
-    if (el.isIntersecting) {
-      el.target.classList.add('in')
-      revealObs.unobserve(el.target)
-    }
-  })
-}, {threshold: 0.07})
 
-document.querySelectorAll('.rv, .rv-grid, .rv-slide').forEach(el => revealObs.observe(el))
 </script>
 </body>
 </html>
